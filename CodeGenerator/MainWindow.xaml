@@ -13,18 +13,31 @@
                        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
-            
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource Carbon.Main.Colors.Background.Variant2}" />
+            </Grid.Background>
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <controls:IconButton IconSource="{DynamicResource IconList}"
+                                     Command="{Binding NavigateToPageTemplatesCommand}"
+                                     IconWidth="48"
+                                     IconHeight="48"
+                                     Margin="10"/>
+                <controls:IconButton IconSource="{DynamicResource IconCode}"
+                                     Command="{Binding NavigateToPageGenerationCommand}"
+                                     IconWidth="48"
+                                     IconHeight="48"
+                                     Margin="10"/>
+                
+            </StackPanel>
         </Grid>
         
-        <controls:VerticalGridSplitter Grid.Column="1" />
-        
-        <ContentControl Grid.Column="2"
+        <ContentControl Grid.Column="1"
                         Content="{Binding NavigationService.CurrentViewModel}"
                         ContentTemplateSelector="{Binding NavigationService.ContentTemplateSelector}"
                         Validation.ErrorTemplate="{x:Null}"/>
