@@ -3,7 +3,9 @@ using System.Windows;
 using Carbon.Bootstrapper;
 using Carbon.Services;
 using Carbon.Services.Interfaces;
+using CodeGenerator.View.Pages;
 using CodeGenerator.ViewModel;
+using CodeGenerator.ViewModel.Pages;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeGenerator;
@@ -34,11 +36,15 @@ public class AppBootstrapper : WpfBootstrapper
     private void AddViewServices(IServiceCollection services)
     {
         services.AddSingleton<MainWindow>();
+        services.AddSingleton<PageGenerationView>();
+        services.AddSingleton<PageTemplatesView>();
     }
 
     private void AddViewModelServices(IServiceCollection services)
     {
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<PageGenerationViewModel>();
+        services.AddSingleton<PageTemplatesViewModel>();
     }
 
     private void AppBootstrapper_UnhandledException(object? sender, Exception e)

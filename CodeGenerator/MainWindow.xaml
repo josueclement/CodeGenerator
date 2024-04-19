@@ -12,6 +12,22 @@
                        Style="{DynamicResource {x:Type controls:CarbonWindow}}"
                        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+            
+        </Grid>
+        
+        <controls:VerticalGridSplitter Grid.Column="1" />
+        
+        <ContentControl Grid.Column="2"
+                        Content="{Binding NavigationService.CurrentViewModel}"
+                        ContentTemplateSelector="{Binding NavigationService.ContentTemplateSelector}"
+                        Validation.ErrorTemplate="{x:Null}"/>
         
     </Grid>
 </controls:CarbonWindow>
