@@ -3,6 +3,8 @@ using System.Windows;
 using Carbon.Bootstrapper;
 using Carbon.Services;
 using Carbon.Services.Interfaces;
+using CodeGenerator.Services;
+using CodeGenerator.Services.Interfaces;
 using CodeGenerator.View.Pages;
 using CodeGenerator.ViewModel;
 using CodeGenerator.ViewModel.Pages;
@@ -28,6 +30,10 @@ public class AppBootstrapper : WpfBootstrapper
         services.AddSingleton<IWindowOverlayService, WindowOverlayService>();
         services.AddSingleton<IMessageBoxBuilderService, MessageBoxBuilderService>();
         services.AddSingleton<INavigationService, NavigationService>();
+        
+        services.AddTransient<ICodeTemplateRepository, CodeTemplateRepository>();
+        services.AddSingleton<ICodeTemplateRepositoryBuilder, CodeTemplateRepositoryBuilder>();
+        services.AddSingleton<ICodeTemplateGenerationService, CodeTemplateGenerationService>();
 
         // Must be called after adding services
         base.ConfigureServices(services);
@@ -43,6 +49,7 @@ public class AppBootstrapper : WpfBootstrapper
     private void AddViewModelServices(IServiceCollection services)
     {
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<PagesBaseViewModel>();
         services.AddSingleton<PageGenerationViewModel>();
         services.AddSingleton<PageTemplatesViewModel>();
     }

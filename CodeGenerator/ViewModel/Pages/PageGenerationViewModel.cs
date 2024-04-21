@@ -1,34 +1,20 @@
-using System;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CodeGenerator.Model;
-using CommunityToolkit.Mvvm.ComponentModel;
+using CodeGenerator.Services.Interfaces;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CodeGenerator.ViewModel.Pages;
 
-public class PageGenerationViewModel : ObservableValidator
+public class PageGenerationViewModel : PagesBaseViewModel
 {
-    public PageGenerationViewModel()
+    private readonly ICodeTemplateGenerationService _codeTemplateGenerationService;
+
+    public PageGenerationViewModel(ICodeTemplateGenerationService codeTemplateGenerationService,
+        ICodeTemplateRepositoryBuilder codeTemplateRepositoryBuilder)
+        : base(codeTemplateRepositoryBuilder)
     {
+        _codeTemplateGenerationService = codeTemplateGenerationService;
         GenerateCommand = new RelayCommand(Generate);
     }
-
-    public string Workspace
-    {
-        get => _workspace;
-        set => SetProperty(ref _workspace, value);
-    }
-    private string _workspace = String.Empty;
-    
-    public ObservableCollection<CodeTemplate> Templates { get; } = [];
-
-    public CodeTemplate? SelectedTemplate
-    {
-        get => _selectedTemplate;
-        set => SetProperty(ref _selectedTemplate, value);
-    }
-    private CodeTemplate? _selectedTemplate;
 
     public string Input
     {
@@ -45,7 +31,7 @@ public class PageGenerationViewModel : ObservableValidator
     private string _output = string.Empty;
     
     public ICommand GenerateCommand { get; }
-
+    
     private void Generate()
     {
         
