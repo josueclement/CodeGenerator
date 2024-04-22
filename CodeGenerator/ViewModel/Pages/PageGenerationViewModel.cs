@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using CodeGenerator.Services.Interfaces;
 using CommunityToolkit.Mvvm.Input;
@@ -34,6 +35,17 @@ public class PageGenerationViewModel : PagesBaseViewModel
     
     private void Generate()
     {
-        
+        // Regex reg = new Regex("%(?<name>[a-zA-Z0-9]+)+(?<param>:[a-zA-Z0-9]+)*%");
+        Regex reg = new Regex("%(?<name>[a-zA-Z0-9]+)+(:(?<param>[a-zA-Z0-9]+)*)?%");
+        string test = "%propertyType% %propertyName% %test:blah%";
+        if (reg.IsMatch(test))
+        {
+            var matches = reg.Matches(test);
+            foreach (Match match in matches)
+            {
+                string name = match.Groups["name"].Value;
+                string param = match.Groups["param"].Value;
+            }
+        }
     }
 }
