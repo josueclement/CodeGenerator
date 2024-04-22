@@ -31,7 +31,7 @@ public class PagesBaseViewModel : ObservableValidator
         get => _templates;
         private set => SetProperty(ref _templates, value);
     }
-    private ObservableCollection<CodeTemplate>? _templates;
+    private ObservableCollection<CodeTemplate>? _templates = [];
 
     public CodeTemplate? SelectedTemplate
     {

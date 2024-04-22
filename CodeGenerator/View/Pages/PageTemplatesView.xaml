@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:view="clr-namespace:CodeGenerator.View"
              xmlns:vm="clr-namespace:CodeGenerator.ViewModel.Pages"
              xmlns:controls="clr-namespace:Carbon.Controls;assembly=Carbon"
              xmlns:editors="clr-namespace:Carbon.Controls.Editors;assembly=Carbon"
@@ -31,38 +32,26 @@
 
                 <StackPanel Grid.Row="0"
                             Orientation="Horizontal">
-                    <Button Content="Add" />
-                    <Button Content="Remove" />
-                    <Button Content="Save" />
+                    <Button Content="Add" Command="{Binding AddCommand}" />
+                    <Button Content="Remove" Command="{Binding RemoveCommand}" />
+                    <Button Content="Save" Command="{Binding SaveCommand}" />
                 </StackPanel>
-                <ListView Grid.Row="1" />
+                <ListView Grid.Row="1"
+                          ItemsSource="{Binding Templates}"
+                          SelectedItem="{Binding SelectedTemplate}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
 
             <controls:VerticalGridSplitter Grid.Column="1" />
 
-            <Grid Grid.Column="2"
-                  Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                    <RowDefinition Height="100" />
-                </Grid.RowDefinitions>
-
-                <editors:TextEditor Grid.Row="0"
-                                    Title="Name"
-                                    Margin="0 0 0 10" />
-                <editors:TextEditor Grid.Row="1"
-                                    Title="Template"
-                                    AcceptsReturn="True"
-                                    HorizontalScrollBarVisibility="Auto"
-                                    VerticalScrollBarVisibility="Auto"
-                                    Margin="0 0 0 10" />
-                <editors:TextEditor Grid.Row="2"
-                                    Title="Example"
-                                    AcceptsReturn="True"
-                                    HorizontalScrollBarVisibility="Auto"
-                                    VerticalScrollBarVisibility="Auto" />
-            </Grid>
+            <view:CodeTemplateView Grid.Column="2"
+                                   DataContext="{Binding SelectedTemplate}"/>
+            
         </Grid>
     </DockPanel>
 </UserControl>

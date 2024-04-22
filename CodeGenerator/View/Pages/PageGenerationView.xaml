@@ -32,7 +32,11 @@
                           ItemsSource="{Binding Templates}"
                           SelectedItem="{Binding SelectedTemplate}"
                           Margin="10">
-
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
 
                 <Grid Grid.Row="1"

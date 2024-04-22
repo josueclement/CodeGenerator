@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="CodeGenerator.View.CodeTemplateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:model="clr-namespace:CodeGenerator.Model"
+             xmlns:editors="clr-namespace:Carbon.Controls.Editors;assembly=Carbon"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance {x:Type model:CodeTemplate}}">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+
+        <editors:TextEditor Grid.Row="0"
+                            Title="Name"
+                            Text="{Binding Name}"
+                            Margin="0 0 0 10" />
+        <editors:TextEditor Grid.Row="1"
+                            Title="Template"
+                            Text="{Binding Template}"
+                            AcceptsReturn="True"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto"
+                            Margin="0 0 0 10" />
+        <editors:TextEditor Grid.Row="2"
+                            Title="Example"
+                            Text="{Binding Example}"
+                            AcceptsReturn="True"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto" />
+    </Grid>
+</UserControl>
