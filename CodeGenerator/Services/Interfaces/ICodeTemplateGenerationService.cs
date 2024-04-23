@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using CodeGenerator.Model;
-
-namespace CodeGenerator.Services.Interfaces;
+﻿namespace CodeGenerator.Services.Interfaces;
 
 public interface ICodeTemplateGenerationService
 {
-    string GenerateCode(CodeTemplate template, Dictionary<string, string> values);
+    string GenerateCode(string template, string example, string input);
 }

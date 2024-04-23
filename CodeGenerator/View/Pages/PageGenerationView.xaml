@@ -79,7 +79,8 @@
                                     IsReadOnly="True"
                                     Margin="10"
                                     HorizontalScrollBarVisibility="Auto"
-                                    VerticalScrollBarVisibility="Auto" />
+                                    VerticalScrollBarVisibility="Auto"
+                                    FontFamily="Consolas"/>
             </Grid>
         </Grid>
     </DockPanel>
