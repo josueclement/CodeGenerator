@@ -8,36 +8,32 @@ namespace CodeGenerator.Services;
 
 public class CodeTemplateGenerationService : ICodeTemplateGenerationService
 {
-    private Regex _reg = new Regex("%(?<name>[a-zA-Z0-9]+)+(:(?<param>[a-zA-Z0-9]+)*)?%");
+    private static readonly Regex RegexVariables = new Regex("%(?<name>[a-zA-Z0-9]+)+(:(?<param>[a-zA-Z0-9]+)*)?%");
+    private static readonly char[] Separator = ['\r','\n'];
 
     public string GenerateCode(string template, string example, string input)
     {
-        string[] inputLines = input.Split(new char[]{'\r','\n'}, StringSplitOptions.RemoveEmptyEntries);
         StringBuilder sb = new StringBuilder();
+        
+        string[] inputLines = input.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
         var itemsToReplace = GetItemsToReplaceInTemplate(template);
+        var variables = example.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
         foreach (string line in inputLines)
         {
-            
-            
-            
             var replacementValues = new Dictionary<string, string>();
-            var variables = example.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var inputValues = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < inputValues.Length; i++)
                 replacementValues.Add(variables[i], inputValues[i]);
             
-            
-            
-            
             var res = template;
 
             foreach (var entry in itemsToReplace)
             {
-                if (replacementValues.ContainsKey(entry.Value.Variable))
+                if (replacementValues.TryGetValue(entry.Value.Variable, out var value))
                     res = res.Replace(entry.Key,
-                        GetValue(replacementValues[entry.Value.Variable], entry.Value.Modifier));
+                        GetValue(value, entry.Value.Modifier));
             }
 
             sb.AppendLine(res).AppendLine();
@@ -48,13 +44,11 @@ public class CodeTemplateGenerationService : ICodeTemplateGenerationService
     
     private Dictionary<string, TemplateReplacement> GetItemsToReplaceInTemplate(string template)
     {
-        //var dic = new Dictionary<string, string>();
         var dic = new Dictionary<string, TemplateReplacement>();
         
-        //list items in template
-        if (_reg.IsMatch(template))
+        if (RegexVariables.IsMatch(template))
         {
-            var matches = _reg.Matches(template);
+            var matches = RegexVariables.Matches(template);
             foreach (Match match in matches)
             {
                 var full = match.Groups[0].Value;
@@ -81,14 +75,12 @@ public class CodeTemplateGenerationService : ICodeTemplateGenerationService
             case "private":
                 return "_" + value[..1].ToLower() + value[1..];
         }
-        if (string.IsNullOrWhiteSpace(modifier))
-            return value;
         return "";
     }
 
     private struct TemplateReplacement
     {
-        public string Variable { get; set; }
-        public string? Modifier { get; set; }
+        public string Variable { get; init; }
+        public string? Modifier { get; init; }
     }
 }
