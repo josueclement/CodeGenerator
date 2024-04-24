@@ -9,8 +9,8 @@ public class PageGenerationViewModel : PagesBaseViewModel
     private readonly ICodeTemplateGenerationService _codeTemplateGenerationService;
 
     public PageGenerationViewModel(ICodeTemplateGenerationService codeTemplateGenerationService,
-        ICodeTemplateRepositoryBuilder codeTemplateRepositoryBuilder)
-        : base(codeTemplateRepositoryBuilder)
+        ICodeTemplateRepository codeTemplateRepository)
+        : base(codeTemplateRepository)
     {
         _codeTemplateGenerationService = codeTemplateGenerationService;
         GenerateCommand = new RelayCommand(Generate);
@@ -35,18 +35,5 @@ public class PageGenerationViewModel : PagesBaseViewModel
     private void Generate()
     {
         Output = _codeTemplateGenerationService.GenerateCode(SelectedTemplate.Template, SelectedTemplate.Example, Input);
-
-        // // Regex reg = new Regex("%(?<name>[a-zA-Z0-9]+)+(?<param>:[a-zA-Z0-9]+)*%");
-        // Regex reg = new Regex("%(?<name>[a-zA-Z0-9]+)+(:(?<param>[a-zA-Z0-9]+)*)?%");
-        // string test = "%propertyType% %propertyName% %test:blah%";
-        // if (reg.IsMatch(test))
-        // {
-        //     var matches = reg.Matches(test);
-        //     foreach (Match match in matches)
-        //     {
-        //         string name = match.Groups["name"].Value;
-        //         string param = match.Groups["param"].Value;
-        //     }
-        // }
     }
 }

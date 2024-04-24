@@ -11,9 +11,9 @@
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance {x:Type vm:PageGenerationViewModel}}">
     <DockPanel>
-        <editors:FolderEditor DockPanel.Dock="Top"
-                              Title="Workspace"
-                              Folder="{Binding Workspace}"
+        <editors:FileEditor DockPanel.Dock="Top"
+                              Title="Templates file"
+                              File="{Binding RepositoryFilePath}"
                               Margin="10" />
         <Grid>
             <Grid.ColumnDefinitions>

@@ -10,40 +10,30 @@ namespace CodeGenerator.Services;
 
 public class CodeTemplateRepository : ICodeTemplateRepository
 {
-    private readonly string _workspace;
-
-    public CodeTemplateRepository(string workspace)
+    public TemplatesFile GetTemplates(string filePath)
     {
-        _workspace = workspace;
-    }
+        var json = File.ReadAllText(filePath, Encoding.UTF8);
+        var templatesFile = JsonConvert.DeserializeObject<TemplatesFile>(json);
 
-    public IEnumerable<CodeTemplate> GetTemplates(string workspace)
-    {
-        var templates = new List<CodeTemplate>();
+        if (templatesFile == null)
+            throw new InvalidOperationException($"Cannot deserialize templates file '{filePath}'");
+
+        templatesFile.FilePath = filePath;
         
-        var files = Directory.GetFiles(workspace, "*.tpl");
-        foreach (var file in files)
+        return templatesFile;
+    }
+
+    public void SaveTemplates(IEnumerable<CodeTemplate> templates, string filePath)
+    {
+        var templatesFile = new TemplatesFile
         {
-            var json = File.ReadAllText(file, Encoding.UTF8);
-            var template = JsonConvert.DeserializeObject<CodeTemplate>(json);
-            
-            if (template == null)
-                throw new InvalidOperationException($"Cannot deserialize from file '{file}'");
-            
-            templates.Add(template);
-        }
+            FilePath = filePath
+        };
 
-        return templates;
-    }
-
-    public void SaveTemplate(CodeTemplate codeTemplate, string filePath)
-    {
-        var json = JsonConvert.SerializeObject(codeTemplate);
+        foreach (CodeTemplate template in templates)
+            templatesFile.Templates.Add(template);
+        
+        var json = JsonConvert.SerializeObject(templatesFile);
         File.WriteAllText(filePath, json, Encoding.UTF8);
-    }
-
-    public void RemoveTemplate(string filePath)
-    {
-        File.Delete(filePath);
     }
 }

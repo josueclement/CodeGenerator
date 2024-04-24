@@ -32,7 +32,6 @@ public class AppBootstrapper : WpfBootstrapper
         services.AddSingleton<INavigationService, NavigationService>();
         
         services.AddTransient<ICodeTemplateRepository, CodeTemplateRepository>();
-        services.AddSingleton<ICodeTemplateRepositoryBuilder, CodeTemplateRepositoryBuilder>();
         services.AddSingleton<ICodeTemplateGenerationService, CodeTemplateGenerationService>();
 
         // Must be called after adding services

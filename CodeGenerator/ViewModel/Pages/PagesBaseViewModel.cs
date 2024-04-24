@@ -8,30 +8,30 @@ namespace CodeGenerator.ViewModel.Pages;
 
 public class PagesBaseViewModel : ObservableValidator
 {
-    protected readonly ICodeTemplateRepositoryBuilder _codeTemplateRepositoryBuilder;
+    private readonly ICodeTemplateRepository _codeTemplateRepository;
 
-    public PagesBaseViewModel(ICodeTemplateRepositoryBuilder codeTemplateRepositoryBuilder)
+    public PagesBaseViewModel(ICodeTemplateRepository codeTemplateRepository)
     {
-        _codeTemplateRepositoryBuilder = codeTemplateRepositoryBuilder;
+        _codeTemplateRepository = codeTemplateRepository;
     }
     
-    public string Workspace
+    public string RepositoryFilePath
     {
-        get => _workspace;
+        get => _repositoryFilePath;
         set
         {
-            if (SetProperty(ref _workspace, value) && Directory.Exists(value))
+            if (SetProperty(ref _repositoryFilePath, value) && File.Exists(value))
                 LoadTemplates(value);
         }
     }
-    private string _workspace = string.Empty;
+    private string _repositoryFilePath = string.Empty;
 
-    public ObservableCollection<CodeTemplate>? Templates
+    public ObservableCollection<CodeTemplate> Templates
     {
         get => _templates;
         private set => SetProperty(ref _templates, value);
     }
-    private ObservableCollection<CodeTemplate>? _templates = [];
+    private ObservableCollection<CodeTemplate> _templates = [];
 
     public CodeTemplate? SelectedTemplate
     {
@@ -40,9 +40,13 @@ public class PagesBaseViewModel : ObservableValidator
     }
     private CodeTemplate? _selectedTemplate;
 
-    private void LoadTemplates(string workspace)
+    private void LoadTemplates(string filePath)
     {
-        var repository = _codeTemplateRepositoryBuilder.Build(workspace);
-        Templates = new ObservableCollection<CodeTemplate>(repository.GetTemplates(workspace));
+        var templatesFile = _codeTemplateRepository.GetTemplates(filePath);
+        
+        Templates.Clear();
+
+        foreach (var template in templatesFile.Templates)
+            Templates.Add(template);
     }
 }
