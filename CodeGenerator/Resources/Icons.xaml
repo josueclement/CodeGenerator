@@ -1,7 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/CodeGenerator;component/Resources/Icons/IconAdd.xaml" />
         <ResourceDictionary Source="pack://application:,,,/CodeGenerator;component/Resources/Icons/IconCode.xaml" />
         <ResourceDictionary Source="pack://application:,,,/CodeGenerator;component/Resources/Icons/IconList.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/CodeGenerator;component/Resources/Icons/IconRemove.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/CodeGenerator;component/Resources/Icons/IconSave.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

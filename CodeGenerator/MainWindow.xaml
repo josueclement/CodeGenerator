@@ -7,10 +7,15 @@
                        xmlns:vm="clr-namespace:CodeGenerator.ViewModel"
                        mc:Ignorable="d"
                        Title="MainWindow"
-                       Height="450"
+                       Height="600"
                        Width="800"
                        Style="{DynamicResource {x:Type controls:CarbonWindow}}"
                        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
+    <controls:CarbonWindow.TitleContent>
+        <TextBlock Text="Code Generator 0.0.1"
+                   VerticalAlignment="Center"
+                   Margin="10 0"/>
+    </controls:CarbonWindow.TitleContent>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />

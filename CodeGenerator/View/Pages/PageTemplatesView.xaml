@@ -31,10 +31,17 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0"
-                            Orientation="Horizontal">
-                    <Button Content="Add" Command="{Binding AddCommand}" />
-                    <Button Content="Remove" Command="{Binding RemoveCommand}" />
-                    <Button Content="Save" Command="{Binding SaveCommand}" />
+                            Orientation="Horizontal"
+                            Margin="0 0 0 10">
+                    <controls:IconButton IconSource="{DynamicResource IconAdd}"
+                                         Command="{Binding AddCommand}"
+                                         ToolTip="Add"/>
+                    <controls:IconButton IconSource="{DynamicResource IconRemove}"
+                                         Command="{Binding RemoveCommand}"
+                                         ToolTip="Remove selected"/>
+                    <controls:IconButton IconSource="{DynamicResource IconSave}"
+                                         Command="{Binding SaveCommand}"
+                                         ToolTip="Save all"/>
                 </StackPanel>
                 <ListView Grid.Row="1"
                           ItemsSource="{Binding Templates}"

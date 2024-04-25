@@ -18,7 +18,7 @@ public class PageTemplatesViewModel : PagesBaseViewModel
         _codeTemplateRepository = codeTemplateRepository;
         AddCommand = new RelayCommand(Add);
         SaveCommand = new RelayCommand(Save);
-        RemoveCommand = new RelayCommand(Remove);
+        RemoveCommand = new RelayCommand(Remove, CanRemove);
     }
     
     public ICommand AddCommand { get; }
@@ -39,8 +39,10 @@ public class PageTemplatesViewModel : PagesBaseViewModel
     {
         if (!File.Exists(RepositoryFilePath))
         {
-            var dialog = new SaveFileDialog();
-            dialog.Filter = "Templates file (.tpl)|*.tpl";
+            var dialog = new SaveFileDialog
+            {
+                Filter = "Templates file (.tpl)|*.tpl"
+            };
             if (dialog.ShowDialog() == true)
             {
                 RepositoryFilePath = dialog.FileName;
@@ -60,4 +62,9 @@ public class PageTemplatesViewModel : PagesBaseViewModel
         if (SelectedTemplate != null)
             Templates.Remove(SelectedTemplate);
     }
+
+    private bool CanRemove() => SelectedTemplate != null;
+
+    protected override void OnSelectedTemplateChanged()
+        => ((RelayCommand)RemoveCommand).NotifyCanExecuteChanged();
 }

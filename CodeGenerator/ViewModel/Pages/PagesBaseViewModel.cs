@@ -36,7 +36,11 @@ public class PagesBaseViewModel : ObservableValidator
     public CodeTemplate? SelectedTemplate
     {
         get => _selectedTemplate;
-        set => SetProperty(ref _selectedTemplate, value);
+        set
+        {
+            SetProperty(ref _selectedTemplate, value);
+            OnSelectedTemplateChanged();
+        } 
     }
     private CodeTemplate? _selectedTemplate;
 
@@ -48,5 +52,10 @@ public class PagesBaseViewModel : ObservableValidator
 
         foreach (var template in templatesFile.Templates)
             Templates.Add(template);
+    }
+
+    protected virtual void OnSelectedTemplateChanged()
+    {
+        
     }
 }
