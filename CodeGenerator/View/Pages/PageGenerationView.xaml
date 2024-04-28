@@ -45,17 +45,28 @@
                  <Grid Grid.Row="0">
                      <Grid.RowDefinitions>
                          <RowDefinition Height="Auto" />
+                         <RowDefinition Height="Auto" />
                          <RowDefinition />
                          <RowDefinition Height="50" />
                      </Grid.RowDefinitions>
                      
                      <editors:TextEditor Grid.Row="0"
-                                         Title="Example"
+                                         Title="Template"
                                          IsReadOnly="True"
-                                         Text="{Binding SelectedTemplate.Example}"
+                                         Text="{Binding SelectedTemplate.Template}"
+                                         Margin="10"
+                                         MaxHeight="200"
+                                         HorizontalScrollBarVisibility="Auto"
+                                         VerticalScrollBarVisibility="Auto"
+                                         FontFamily="Consolas"/> 
+                     
+                     <editors:TextEditor Grid.Row="1"
+                                         Title="Command"
+                                         IsReadOnly="True"
+                                         Text="{Binding SelectedTemplate.Command}"
                                          Margin="10"/> 
 
-                     <editors:TextEditor Grid.Row="1"
+                     <editors:TextEditor Grid.Row="2"
                                          AcceptsReturn="True"
                                          Title="Input"
                                          Text="{Binding Input}"
@@ -64,7 +75,7 @@
                                          VerticalScrollBarVisibility="Auto"
                                          FontFamily="Consolas" />
 
-                     <Button Grid.Row="2"
+                     <Button Grid.Row="3"
                              Content="Generate"
                              Command="{Binding GenerateCommand}"
                              VerticalAlignment="Center"

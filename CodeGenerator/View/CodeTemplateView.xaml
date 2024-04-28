@@ -13,25 +13,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <editors:TextEditor Grid.Row="0"
                             Title="Name"
                             Text="{Binding Name}"
-                            Margin="0 0 0 10" />
+                            Margin="0 0 0 10"/>
         <editors:TextEditor Grid.Row="1"
                             Title="Template"
                             Text="{Binding Template}"
+                            SelectAllTextOnFocus="False"
                             AcceptsReturn="True"
                             HorizontalScrollBarVisibility="Auto"
                             VerticalScrollBarVisibility="Auto"
-                            Margin="0 0 0 10" />
+                            Margin="0 0 0 10"/>
         <editors:TextEditor Grid.Row="2"
-                            Title="Example"
-                            Text="{Binding Example}"
-                            AcceptsReturn="True"
-                            HorizontalScrollBarVisibility="Auto"
-                            VerticalScrollBarVisibility="Auto" />
+                            Title="Command"
+                            Text="{Binding Command}"
+                            SelectAllTextOnFocus="False"/>
     </Grid>
 </UserControl>

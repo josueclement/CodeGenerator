@@ -1,5 +1,4 @@
 using System.IO;
-using System.Windows;
 using System.Windows.Input;
 using CodeGenerator.Model;
 using CodeGenerator.Services.Interfaces;
@@ -46,15 +45,9 @@ public class PageTemplatesViewModel : PagesBaseViewModel
             if (dialog.ShowDialog() == true)
             {
                 RepositoryFilePath = dialog.FileName;
-            }
-            else
-            {
-                MessageBox.Show("Not saved !!");
-                return;
+                _codeTemplateRepository.SaveTemplates(Templates, RepositoryFilePath);
             }
         }
-        
-        _codeTemplateRepository.SaveTemplates(Templates, RepositoryFilePath);
     }
 
     private void Remove()

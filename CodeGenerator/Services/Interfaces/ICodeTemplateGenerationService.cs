@@ -2,5 +2,5 @@
 
 public interface ICodeTemplateGenerationService
 {
-    string GenerateCode(string template, string example, string input);
+    string GenerateCode(string template, string command, string input);
 }

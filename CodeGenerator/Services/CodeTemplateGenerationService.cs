@@ -11,13 +11,13 @@ public class CodeTemplateGenerationService : ICodeTemplateGenerationService
     private static readonly Regex RegexVariables = new Regex("%(?<name>[a-zA-Z0-9]+)+(:(?<param>[a-zA-Z0-9]+)*)?%");
     private static readonly char[] Separator = ['\r','\n'];
 
-    public string GenerateCode(string template, string example, string input)
+    public string GenerateCode(string template, string command, string input)
     {
         StringBuilder sb = new StringBuilder();
         
         string[] inputLines = input.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
         var itemsToReplace = GetItemsToReplaceInTemplate(template);
-        var variables = example.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var variables = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
         foreach (string line in inputLines)
         {
