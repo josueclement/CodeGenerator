@@ -34,6 +34,9 @@ public class PageGenerationViewModel : PagesBaseViewModel
     
     private void Generate()
     {
+        if (SelectedTemplate?.Template is null || SelectedTemplate?.Command is null)
+            return;
+        
         Output = _codeTemplateGenerationService.GenerateCode(SelectedTemplate.Template, SelectedTemplate.Command, Input);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using CodeGenerator.Model;
 using CodeGenerator.Services.Interfaces;
 using Newtonsoft.Json;
@@ -10,9 +11,9 @@ namespace CodeGenerator.Services;
 
 public class CodeTemplateRepository : ICodeTemplateRepository
 {
-    public TemplatesFile GetTemplates(string filePath)
+    public async Task<TemplatesFile> GetTemplatesAsync(string filePath)
     {
-        var json = File.ReadAllText(filePath, Encoding.UTF8);
+        var json = await File.ReadAllTextAsync(filePath, Encoding.UTF8);
         var templatesFile = JsonConvert.DeserializeObject<TemplatesFile>(json);
 
         if (templatesFile == null)
@@ -23,7 +24,7 @@ public class CodeTemplateRepository : ICodeTemplateRepository
         return templatesFile;
     }
 
-    public void SaveTemplates(IEnumerable<CodeTemplate> templates, string filePath)
+    public async Task SaveTemplatesAsync(IEnumerable<CodeTemplate> templates, string filePath)
     {
         var templatesFile = new TemplatesFile
         {
@@ -34,6 +35,6 @@ public class CodeTemplateRepository : ICodeTemplateRepository
             templatesFile.Templates.Add(template);
         
         var json = JsonConvert.SerializeObject(templatesFile);
-        File.WriteAllText(filePath, json, Encoding.UTF8);
+        await File.WriteAllTextAsync(filePath, json, Encoding.UTF8);
     }
 }

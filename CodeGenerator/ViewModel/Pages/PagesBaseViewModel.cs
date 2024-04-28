@@ -1,5 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 using CodeGenerator.Model;
 using CodeGenerator.Services.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,17 +25,12 @@ public class PagesBaseViewModel : ObservableValidator
         set
         {
             if (SetProperty(ref _repositoryFilePath, value) && File.Exists(value))
-                LoadTemplates(value);
+                Task.Run(async () => await LoadTemplates(value));
         }
     }
     private string _repositoryFilePath = string.Empty;
 
-    public ObservableCollection<CodeTemplate> Templates
-    {
-        get => _templates;
-        private set => SetProperty(ref _templates, value);
-    }
-    private ObservableCollection<CodeTemplate> _templates = [];
+    public ObservableCollection<CodeTemplate> Templates { get; } = [];
 
     public CodeTemplate? SelectedTemplate
     {
@@ -44,14 +43,17 @@ public class PagesBaseViewModel : ObservableValidator
     }
     private CodeTemplate? _selectedTemplate;
 
-    private void LoadTemplates(string filePath)
+    private async Task LoadTemplates(string filePath)
     {
-        var templatesFile = _codeTemplateRepository.GetTemplates(filePath);
-        
-        Templates.Clear();
+        var templatesFile = await _codeTemplateRepository.GetTemplatesAsync(filePath);
 
-        foreach (var template in templatesFile.Templates)
-            Templates.Add(template);
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            Templates.Clear();
+            
+            foreach (var template in templatesFile.Templates)
+                Templates.Add(template);
+        });
     }
 
     protected virtual void OnSelectedTemplateChanged()

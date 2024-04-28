@@ -1,5 +1,5 @@
 using System.IO;
-using System.Windows.Input;
+using System.Threading.Tasks;
 using CodeGenerator.Model;
 using CodeGenerator.Services.Interfaces;
 using CommunityToolkit.Mvvm.Input;
@@ -16,13 +16,13 @@ public class PageTemplatesViewModel : PagesBaseViewModel
     {
         _codeTemplateRepository = codeTemplateRepository;
         AddCommand = new RelayCommand(Add);
-        SaveCommand = new RelayCommand(Save);
+        SaveCommand = new AsyncRelayCommand(Save);
         RemoveCommand = new RelayCommand(Remove, CanRemove);
     }
     
-    public ICommand AddCommand { get; }
-    public ICommand SaveCommand { get; }
-    public ICommand RemoveCommand { get; }
+    public RelayCommand AddCommand { get; }
+    public AsyncRelayCommand SaveCommand { get; }
+    public RelayCommand RemoveCommand { get; }
 
     private void Add()
     {
@@ -30,11 +30,11 @@ public class PageTemplatesViewModel : PagesBaseViewModel
         {
             Name = "New template"
         };
-        Templates?.Add(tpl);
+        Templates.Add(tpl);
         SelectedTemplate = tpl;
     }
 
-    private void Save()
+    private async Task Save()
     {
         if (!File.Exists(RepositoryFilePath))
         {
@@ -45,7 +45,7 @@ public class PageTemplatesViewModel : PagesBaseViewModel
             if (dialog.ShowDialog() == true)
             {
                 RepositoryFilePath = dialog.FileName;
-                _codeTemplateRepository.SaveTemplates(Templates, RepositoryFilePath);
+                await _codeTemplateRepository.SaveTemplatesAsync(Templates, RepositoryFilePath);
             }
         }
     }
@@ -59,5 +59,5 @@ public class PageTemplatesViewModel : PagesBaseViewModel
     private bool CanRemove() => SelectedTemplate != null;
 
     protected override void OnSelectedTemplateChanged()
-        => ((RelayCommand)RemoveCommand).NotifyCanExecuteChanged();
+        => RemoveCommand.NotifyCanExecuteChanged();
 }
