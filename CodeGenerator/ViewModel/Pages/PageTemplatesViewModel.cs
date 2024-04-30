@@ -43,11 +43,10 @@ public class PageTemplatesViewModel : PagesBaseViewModel
                 Filter = "Templates file (.tpl)|*.tpl"
             };
             if (dialog.ShowDialog() == true)
-            {
                 RepositoryFilePath = dialog.FileName;
-                await _codeTemplateRepository.SaveTemplatesAsync(Templates, RepositoryFilePath);
-            }
         }
+        
+        await _codeTemplateRepository.SaveTemplatesAsync(Templates, RepositoryFilePath);
     }
 
     private void Remove()
