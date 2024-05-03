@@ -12,7 +12,7 @@
                        Style="{DynamicResource {x:Type controls:CarbonWindow}}"
                        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
     <controls:CarbonWindow.TitleContent>
-        <TextBlock Text="Code Generator 0.0.1"
+        <TextBlock Text="Code Generator 1.0.0"
                    VerticalAlignment="Center"
                    Margin="10 0"/>
     </controls:CarbonWindow.TitleContent>

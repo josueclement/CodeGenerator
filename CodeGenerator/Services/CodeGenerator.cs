@@ -24,6 +24,9 @@ public class CodeGenerator : ICodeGenerator
             var replacementValues = new Dictionary<string, string>();
             var inputValues = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
+            if (inputValues.Length > variables.Length)
+                return "ERROR: Too many arguments in input !";
+            
             for (int i = 0; i < inputValues.Length; i++)
                 replacementValues.Add(variables[i], inputValues[i]);
             

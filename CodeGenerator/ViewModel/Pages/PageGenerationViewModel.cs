@@ -34,8 +34,23 @@ public class PageGenerationViewModel : PagesBaseViewModel
     
     private void Generate()
     {
-        if (SelectedTemplate?.Template is null || SelectedTemplate?.Command is null)
+        if (SelectedTemplate is null)
+        {
+            Output = "Please select a template first";
             return;
+        }
+        
+        if (string.IsNullOrEmpty(SelectedTemplate?.Template))
+        {
+            Output = "Error in template: template is empty !";
+            return;
+        }
+        
+        if (string.IsNullOrEmpty(SelectedTemplate?.Command))
+        {
+            Output = "Error in template: command is empty !";
+            return;
+        }
         
         Output = _codeGenerator.GenerateCode(SelectedTemplate.Template, SelectedTemplate.Command, Input);
     }
