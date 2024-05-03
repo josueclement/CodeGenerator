@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace CodeGenerator.Services;
 
-public class CodeTemplateRepository : ICodeTemplateRepository
+public class TemplatesRepository : ITemplatesRepository
 {
     public async Task<TemplatesFile> GetTemplatesAsync(string filePath)
     {

@@ -6,7 +6,7 @@ using CodeGenerator.Services.Interfaces;
 
 namespace CodeGenerator.Services;
 
-public class CodeTemplateGenerationService : ICodeTemplateGenerationService
+public class CodeGenerator : ICodeGenerator
 {
     private static readonly Regex RegexVariables = new Regex("%(?<name>[a-zA-Z0-9]+)+(:(?<param>[a-zA-Z0-9]+)*)?%");
     private static readonly char[] Separator = ['\r','\n'];

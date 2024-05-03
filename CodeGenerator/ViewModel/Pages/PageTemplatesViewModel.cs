@@ -9,12 +9,15 @@ namespace CodeGenerator.ViewModel.Pages;
 
 public class PageTemplatesViewModel : PagesBaseViewModel
 {
-    private readonly ICodeTemplateRepository _codeTemplateRepository;
+    private readonly ITemplatesRepository _templatesRepository;
+    private readonly ITemplatesService _templatesService;
 
-    public PageTemplatesViewModel(ICodeTemplateRepository codeTemplateRepository)
-        : base(codeTemplateRepository)
+    public PageTemplatesViewModel(ITemplatesRepository templatesRepository,
+        ITemplatesService templatesService)
+        : base(templatesService)
     {
-        _codeTemplateRepository = codeTemplateRepository;
+        _templatesRepository = templatesRepository;
+        _templatesService = templatesService;
         AddCommand = new RelayCommand(Add);
         SaveCommand = new AsyncRelayCommand(Save);
         RemoveCommand = new RelayCommand(Remove, CanRemove);
@@ -30,29 +33,29 @@ public class PageTemplatesViewModel : PagesBaseViewModel
         {
             Name = "New template"
         };
-        Templates.Add(tpl);
+        TemplatesService.Templates.Add(tpl);
         SelectedTemplate = tpl;
     }
 
     private async Task Save()
     {
-        if (!File.Exists(RepositoryFilePath))
+        if (!File.Exists(TemplatesService.RepositoryFilePath))
         {
             var dialog = new SaveFileDialog
             {
                 Filter = "Templates file (.tpl)|*.tpl"
             };
             if (dialog.ShowDialog() == true)
-                RepositoryFilePath = dialog.FileName;
+                TemplatesService.RepositoryFilePath = dialog.FileName;
         }
         
-        await _codeTemplateRepository.SaveTemplatesAsync(Templates, RepositoryFilePath);
+        await _templatesRepository.SaveTemplatesAsync(TemplatesService.Templates, TemplatesService.RepositoryFilePath);
     }
 
     private void Remove()
     {
         if (SelectedTemplate != null)
-            Templates.Remove(SelectedTemplate);
+            TemplatesService.Templates.Remove(SelectedTemplate);
     }
 
     private bool CanRemove() => SelectedTemplate != null;

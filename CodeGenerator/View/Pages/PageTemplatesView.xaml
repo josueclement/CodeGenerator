@@ -14,7 +14,7 @@
     <DockPanel>
         <editors:FileEditor DockPanel.Dock="Top"
                               Title="Templates file"
-                              File="{Binding RepositoryFilePath}"
+                              File="{Binding TemplatesService.RepositoryFilePath}"
                               Margin="10" />
         <Grid>
             <Grid.ColumnDefinitions>
@@ -44,7 +44,7 @@
                                          ToolTip="Save all"/>
                 </StackPanel>
                 <ListView Grid.Row="1"
-                          ItemsSource="{Binding Templates}"
+                          ItemsSource="{Binding TemplatesService.Templates}"
                           SelectedItem="{Binding SelectedTemplate}">
                     <ListView.ItemTemplate>
                         <DataTemplate>

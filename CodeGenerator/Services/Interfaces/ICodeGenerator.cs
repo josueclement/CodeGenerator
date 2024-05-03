@@ -1,6 +1,6 @@
 ﻿namespace CodeGenerator.Services.Interfaces;
 
-public interface ICodeTemplateGenerationService
+public interface ICodeGenerator
 {
     string GenerateCode(string template, string command, string input);
 }

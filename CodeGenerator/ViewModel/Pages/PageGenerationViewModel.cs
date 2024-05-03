@@ -6,13 +6,13 @@ namespace CodeGenerator.ViewModel.Pages;
 
 public class PageGenerationViewModel : PagesBaseViewModel
 {
-    private readonly ICodeTemplateGenerationService _codeTemplateGenerationService;
+    private readonly ICodeGenerator _codeGenerator;
 
-    public PageGenerationViewModel(ICodeTemplateGenerationService codeTemplateGenerationService,
-        ICodeTemplateRepository codeTemplateRepository)
-        : base(codeTemplateRepository)
+    public PageGenerationViewModel(ICodeGenerator codeGenerator,
+        ITemplatesService templatesService)
+        : base(templatesService)
     {
-        _codeTemplateGenerationService = codeTemplateGenerationService;
+        _codeGenerator = codeGenerator;
         GenerateCommand = new RelayCommand(Generate);
     }
 
@@ -37,6 +37,6 @@ public class PageGenerationViewModel : PagesBaseViewModel
         if (SelectedTemplate?.Template is null || SelectedTemplate?.Command is null)
             return;
         
-        Output = _codeTemplateGenerationService.GenerateCode(SelectedTemplate.Template, SelectedTemplate.Command, Input);
+        Output = _codeGenerator.GenerateCode(SelectedTemplate.Template, SelectedTemplate.Command, Input);
     }
 }
