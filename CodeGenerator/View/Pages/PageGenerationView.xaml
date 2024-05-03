@@ -33,10 +33,11 @@
                 <ListView Grid.Row="0"
                           ItemsSource="{Binding TemplatesService.Templates}"
                           SelectedItem="{Binding SelectedTemplate}"
-                          Margin="10">
+                          Margin="10"
+                          Validation.ErrorTemplate="{x:Null}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Name}" Validation.ErrorTemplate="{x:Null}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

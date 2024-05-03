@@ -1,8 +1,31 @@
-﻿namespace CodeGenerator.Model;
+﻿using System.ComponentModel.DataAnnotations;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-public class CodeTemplate
+namespace CodeGenerator.Model;
+
+public class CodeTemplate : ObservableValidator
 {
-    public string? Name { get; set; }
-    public string? Template { get; set; }
-    public string? Command { get; set; }
+    [Required]
+    public string? Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value, true);
+    }
+    private string? _name;
+
+    [Required]
+    public string? Template
+    {
+        get => _template;
+        set => SetProperty(ref _template, value, true);
+    }
+    private string? _template;
+
+    [Required]
+    public string? Command
+    {
+        get => _command;
+        set => SetProperty(ref _command, value, true);
+    }
+    private string? _command;
 }

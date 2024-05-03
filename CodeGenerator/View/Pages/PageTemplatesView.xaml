@@ -45,10 +45,11 @@
                 </StackPanel>
                 <ListView Grid.Row="1"
                           ItemsSource="{Binding TemplatesService.Templates}"
-                          SelectedItem="{Binding SelectedTemplate}">
+                          SelectedItem="{Binding SelectedTemplate}"
+                          Validation.ErrorTemplate="{x:Null}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Name}" Validation.ErrorTemplate="{x:Null}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -57,7 +58,8 @@
             <controls:VerticalGridSplitter Grid.Column="1" />
 
             <view:CodeTemplateView Grid.Column="2"
-                                   DataContext="{Binding SelectedTemplate}"/>
+                                   DataContext="{Binding SelectedTemplate}"
+                                   Validation.ErrorTemplate="{x:Null}"/>
             
         </Grid>
     </DockPanel>

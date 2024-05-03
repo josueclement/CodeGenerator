@@ -31,7 +31,9 @@ public class PageTemplatesViewModel : PagesBaseViewModel
     {
         var tpl = new CodeTemplate
         {
-            Name = "New template"
+            Name = "New template",
+            Template = string.Empty,
+            Command = string.Empty
         };
         TemplatesService.Templates.Add(tpl);
         SelectedTemplate = tpl;
