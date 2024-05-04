@@ -30,14 +30,16 @@
                         VerticalAlignment="Center">
                 <controls:IconButton IconSource="{DynamicResource IconList}"
                                      Command="{Binding NavigateToPageTemplatesCommand}"
+                                     Title="Templates"
                                      IconWidth="48"
                                      IconHeight="48"
-                                     Margin="10"/>
+                                     IconMargin="10"/>
                 <controls:IconButton IconSource="{DynamicResource IconCode}"
                                      Command="{Binding NavigateToPageGenerationCommand}"
+                                     Title="Generate"
                                      IconWidth="48"
                                      IconHeight="48"
-                                     Margin="10"/>
+                                     IconMargin="10"/>
                 
             </StackPanel>
         </Grid>
