@@ -7,10 +7,21 @@
              xmlns:vm="clr-namespace:CodeGenerator.ViewModel.Pages"
              xmlns:controls="clr-namespace:Carbon.Controls;assembly=Carbon"
              xmlns:editors="clr-namespace:Carbon.Controls.Editors;assembly=Carbon"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance {x:Type vm:PageTemplatesViewModel}}">
+    
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="TemplatesCvs"
+                              Source="{Binding TemplatesService.Templates}">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Name" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    
     <DockPanel>
         <editors:FileEditor DockPanel.Dock="Top"
                               Title="Templates file"
@@ -44,7 +55,7 @@
                                          ToolTip="Save all"/>
                 </StackPanel>
                 <ListView Grid.Row="1"
-                          ItemsSource="{Binding TemplatesService.Templates}"
+                          ItemsSource="{Binding Source={StaticResource TemplatesCvs}}"
                           SelectedItem="{Binding SelectedTemplate}"
                           Validation.ErrorTemplate="{x:Null}">
                     <ListView.ItemTemplate>
